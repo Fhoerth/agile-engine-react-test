@@ -1,0 +1,11 @@
+{
+  "name": "agile-engine-react-test",
+  "version": "1.0.0",
+  "description": "Agile Engine React Online Test",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-fhoerth:Fhoerth/agile-engine-react-test.git"
+  },
+  "author": "Federico Hoerth <federicohoerth@gmail.com>",
+  "license": "ISC"
+}
