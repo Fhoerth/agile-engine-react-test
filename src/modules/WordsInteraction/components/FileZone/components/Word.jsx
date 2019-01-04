@@ -15,14 +15,28 @@ class Word extends React.Component {
     console.log('Selected');
   };
 
+  renderPunctuation() {
+    const { punctuation } = this.props;
+
+    return punctuation
+      ? (
+        <span>
+          {punctuation}
+        </span>
+      ) : ' ';
+  }
+
   render() {
-    const { text, punctuation } = this.props;
+    const { text } = this.props;
 
     return (
       <React.Fragment>
-        <span onDoubleClick={this.handleDoubleClick}>{text}</span>{punctuation && (<span>{punctuation} </span>) || " "}
+        <span onDoubleClick={this.handleDoubleClick}>
+          {text}
+        </span>
+        {this.renderPunctuation()}
       </React.Fragment>
-    )
+    );
   }
 }
 
