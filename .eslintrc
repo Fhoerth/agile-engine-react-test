@@ -12,7 +12,8 @@
       }
     ],
     "jsx-a11y/click-events-have-key-events": false,
-    "jsx-a11y/no-static-element-interactions": false
+    "jsx-a11y/no-static-element-interactions": false,
+    "react/jsx-one-expression-per-line": false
   },
   "globals": {
     "window": true,

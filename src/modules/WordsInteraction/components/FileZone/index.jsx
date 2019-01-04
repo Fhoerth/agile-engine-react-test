@@ -18,6 +18,7 @@ class FileZone extends React.Component {
 
     this.state = {
       words: [],
+      selectedWord: null,
       modal: {
         show: false,
         position: {
@@ -49,6 +50,7 @@ class FileZone extends React.Component {
         show: true,
         position: { x, y },
       },
+      selectedWord: word,
     });
   }
 
@@ -66,12 +68,16 @@ class FileZone extends React.Component {
   }
 
   render() {
-    const { words, modal } = this.state;
+    const { words, modal, selectedWord } = this.state;
 
     return (
       <div className={styles['file-zone']}>
         <div className={styles.file} onClick={this.handleDismiss}>
-          <ToolTip show={modal.show} position={modal.position} />
+          <ToolTip
+            show={modal.show}
+            position={modal.position}
+            word={selectedWord}
+          />
           <Words
             words={words}
             onSelection={this.handleSelection}
