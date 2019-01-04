@@ -19,10 +19,7 @@ class FileZone extends React.Component {
     this.state = {
       words: transformText(text),
       selectedWord: null,
-      modal: {
-        show: false,
-        position: { x: 0, y: 0 },
-      },
+      modal: { show: false },
     };
   }
 
