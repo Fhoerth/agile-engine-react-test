@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import transformText from './utils';
 import styles from './styles.scss';
 
-import Words from './Words';
+import Words from './components/Words';
 
 class FileZone extends React.Component {
   static propTypes = {
