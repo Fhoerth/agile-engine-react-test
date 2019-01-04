@@ -22,27 +22,61 @@ class WordsInteraction extends React.Component {
       this.setState({
         text,
         isLoading: false,
+        selectedWord: null,
+        tooltip: { show: false },
       });
     });
   }
 
+  handleSelection = (e, word) => {
+    const targetCoordinates = e.target.getBoundingClientRect();
+    const targetParentCoordinates = e.target.parentNode.getBoundingClientRect();
+
+    const x = targetCoordinates.left - targetParentCoordinates.left;
+    const y = targetCoordinates.top - targetParentCoordinates.top;
+
+    this.setState({
+      tooltip: {
+        show: true,
+        position: { x, y },
+      },
+      selectedWord: word,
+    });
+  }
+
+  handleDismiss = () => {
+    const { tooltip } = this.state;
+
+    if (tooltip.show) {
+      this.setState({
+        tooltip: { show: false },
+      });
+    }
+  }
+
   render() {
-    const { text, isLoading } = this.state;
+    const {
+      text,
+      isLoading,
+      selectedWord,
+      tooltip,
+    } = this.state;
 
     return (
       <div className={styles.app}>
         <Header />
-        <main className={styles.main}>
+        <div className={styles.main} onClick={this.handleDismiss}>
           <ControlPanel />
 
-          {isLoading && (
-            <FileZone text="Loading..." />
-          )}
-
           {!isLoading && (
-            <FileZone text={text} />
+            <FileZone
+              text={text}
+              tooltip={tooltip}
+              selectedWord={selectedWord}
+              onSelection={this.handleSelection}
+            />
           )}
-        </main>
+        </div>
       </div>
     );
   }

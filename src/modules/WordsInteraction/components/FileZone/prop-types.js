@@ -13,3 +13,10 @@ export const wordPropType = PropTypes.shape({
   }),
   punctuation: PropTypes.string,
 });
+export const tooltipPropType = PropTypes.shape({
+  show: PropTypes.bool.isRequired,
+  position: PropTypes.shape({
+    x: PropTypes.number,
+    y: PropTypes.number,
+  }),
+});

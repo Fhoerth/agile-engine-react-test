@@ -1,16 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { transformText, replaceWord } from './utils';
 import styles from './styles.scss';
-
 import Words from './components/Words';
 import ToolTip from './components/ToolTip';
+
+import { transformText, replaceWord } from '../../utils';
+import { onSelectionPropType, tooltipPropType, wordPropType } from './prop-types';
 
 class FileZone extends React.Component {
   static propTypes = {
     text: PropTypes.string.isRequired,
+    onSelection: onSelectionPropType.isRequired,
+    tooltip: tooltipPropType.isRequired,
+    selectedWord: wordPropType,
   }
+
+  static defaultProps = {
+    selectedWord: null,
+  };
 
   constructor(props) {
     super(props);
@@ -18,8 +26,6 @@ class FileZone extends React.Component {
 
     this.state = {
       words: transformText(text),
-      selectedWord: null,
-      modal: { show: false },
     };
   }
 
@@ -36,58 +42,31 @@ class FileZone extends React.Component {
     }
   }
 
-  handleSelection = (e, word) => {
-    const targetCoordinates = e.target.getBoundingClientRect();
-    const targetParentCoordinates = e.target.parentNode.getBoundingClientRect();
-
-    const x = targetCoordinates.left - targetParentCoordinates.left;
-    const y = targetCoordinates.top - targetParentCoordinates.top;
-
-    this.setState({
-      modal: {
-        show: true,
-        position: { x, y },
-      },
-      selectedWord: word,
-    });
-  }
-
-  handleDismiss = () => {
-    const { modal } = this.state;
-
-    if (modal.show) {
-      this.setState({
-        modal: { show: false },
-      });
-    }
-  }
-
   handleSynonymClick = synonym => () => {
-    const { words, selectedWord } = this.state;
+    const { words } = this.state;
+    const { selectedWord } = this.props;
 
     this.setState({
-      modal: {
-        show: false,
-      },
       words: replaceWord(words, selectedWord, synonym),
     });
   }
 
   render() {
-    const { words, modal, selectedWord } = this.state;
+    const { words } = this.state;
+    const { tooltip, selectedWord, onSelection } = this.props;
 
     return (
       <div className={styles['file-zone']}>
-        <div className={styles.file} onClick={this.handleDismiss}>
+        <div className={styles.file}>
           <ToolTip
-            show={modal.show}
-            position={modal.position}
+            show={tooltip.show}
+            position={tooltip.position}
             word={selectedWord}
             onSynonymClick={this.handleSynonymClick}
           />
           <Words
             words={words}
-            onSelection={this.handleSelection}
+            onSelection={onSelection}
           />
         </div>
       </div>
