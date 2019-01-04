@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import dataMuseAPIClient from '../../../../api-client/dataMuse';
 import styles from './styles.scss';
-import { wordPropType } from '../../prop-types';
+import { wordPropType } from '../../../../prop-types';
 
 class ToolTip extends React.Component {
   static propTypes = {

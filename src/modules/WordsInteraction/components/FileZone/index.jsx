@@ -6,7 +6,7 @@ import Words from './components/Words';
 import ToolTip from './components/ToolTip';
 
 import { transformText, replaceWord } from '../../utils';
-import { onSelectionPropType, tooltipPropType, wordPropType } from './prop-types';
+import { onSelectionPropType, tooltipPropType, wordPropType } from '../../prop-types';
 
 class FileZone extends React.Component {
   static propTypes = {

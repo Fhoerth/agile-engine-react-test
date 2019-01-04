@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 
 import styles from './styles.scss';
-import { onSelectionPropType, wordPropType } from '../../prop-types';
+import { onSelectionPropType, wordPropType } from '../../../../prop-types';
 
 class Word extends React.Component {
   static propTypes = {

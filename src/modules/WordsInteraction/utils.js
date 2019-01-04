@@ -39,3 +39,28 @@ export function replaceWord(words, selectedWord, synonym) {
 
   return words.map(mapper);
 }
+
+export function formatWord(words, selectedWord, format) {
+  const mapper = (word) => {
+    if (word === selectedWord) {
+      return {
+        ...word,
+        text: {
+          ...word.text,
+          format: {
+            ...word.text.format,
+            [format]: true,
+          },
+        },
+      };
+    }
+
+    return word;
+  };
+
+  return words.map(mapper);
+}
+
+export function hasFormat(word, format) {
+  return word && word.text && word.text.format && word.text.format[format];
+}

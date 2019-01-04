@@ -6,6 +6,7 @@ import ControlPanel from './components/ControlPanel';
 import FileZone from './components/FileZone';
 
 import styles from './styles.scss';
+import { formatWord } from './utils';
 
 class WordsInteraction extends React.Component {
   constructor(props) {
@@ -54,6 +55,10 @@ class WordsInteraction extends React.Component {
     }
   }
 
+  handleFormat = () => {
+
+  }
+
   render() {
     const {
       text,
@@ -66,7 +71,10 @@ class WordsInteraction extends React.Component {
       <div className={styles.app}>
         <Header />
         <div className={styles.main} onClick={this.handleDismiss}>
-          <ControlPanel />
+          <ControlPanel
+            selectedWord={selectedWord}
+            onFormat={this.handleFormat}
+          />
 
           {!isLoading && (
             <FileZone
