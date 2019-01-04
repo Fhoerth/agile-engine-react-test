@@ -11,7 +11,7 @@
     "build": "cross-env NODE_ENV=production webpack",
     "analyze": "npm run build -- --analyze",
     "dev": "webpack-dev-server --inline --hot --open",
-    "prod": "http-server dist -p 9000"
+    "prod": "http-server dist -p 8000"
   },
   "author": "Federico Hoerth <federicohoerth@gmail.com>",
   "license": "ISC",
