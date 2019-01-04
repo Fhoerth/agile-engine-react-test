@@ -1,5 +1,4 @@
 import React from 'react';
-import dataMuseAPIClient from './api-client/dataMuse';
 import textAPIClient from './api-client/text';
 
 import Header from './components/Header';

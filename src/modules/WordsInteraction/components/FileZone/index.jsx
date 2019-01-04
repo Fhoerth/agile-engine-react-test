@@ -9,7 +9,6 @@ import ToolTip from './components/ToolTip';
 
 class FileZone extends React.Component {
   static propTypes = {
-    // eslint-disable-next-line react/no-unused-prop-types
     text: PropTypes.string.isRequired,
   }
 
