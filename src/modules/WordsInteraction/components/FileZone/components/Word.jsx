@@ -37,7 +37,7 @@ class Word extends React.Component {
     return (
       <React.Fragment>
         <span onDoubleClick={this.handleDoubleClick}>
-          {word.text}
+          {word.text.value}
         </span>
         {this.renderPunctuation()}
       </React.Fragment>

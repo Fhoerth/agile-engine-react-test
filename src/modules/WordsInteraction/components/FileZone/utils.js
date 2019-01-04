@@ -13,7 +13,9 @@ function transformText(text) {
       }
 
       return {
-        text: textWithoutPunctuation,
+        text: {
+          value: textWithoutPunctuation,
+        },
         key: textWithoutPunctuation.toLowerCase().concat(`-${idx}`),
         punctuation,
       };
