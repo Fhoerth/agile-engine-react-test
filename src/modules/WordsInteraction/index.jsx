@@ -79,6 +79,12 @@ class WordsInteraction extends React.Component {
     }
   }
 
+  handleUnSelectWord = () => {
+    this.setState({
+      selectedWord: null,
+    });
+  }
+
   render() {
     const {
       words,
@@ -101,6 +107,7 @@ class WordsInteraction extends React.Component {
               words={words}
               tooltip={tooltip}
               selectedWord={selectedWord}
+              onClick={this.handleUnSelectWord}
               onSelection={this.handleSelection}
               onSynonymClick={this.handleSynonymClick}
             />

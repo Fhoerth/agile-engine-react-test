@@ -18,9 +18,10 @@ function FileZone({
   onSelection,
   onSynonymClick,
   words,
+  onClick,
 }) {
   return (
-    <div className={styles['file-zone']}>
+    <div className={styles['file-zone']} onClick={onClick}>
       <div className={styles.file}>
         <ToolTip
           show={tooltip.show}
@@ -38,6 +39,7 @@ function FileZone({
 }
 
 FileZone.propTypes = {
+  onClick: PropTypes.func,
   words: PropTypes.arrayOf(wordPropType).isRequired,
   onSelection: onSelectionPropType.isRequired,
   onSynonymClick: onSynonymClickPropType.isRequired,
@@ -47,6 +49,7 @@ FileZone.propTypes = {
 
 FileZone.defaultProps = {
   selectedWord: null,
+  onClick: () => {},
 };
 
 export default FileZone;
