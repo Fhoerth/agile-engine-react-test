@@ -1,18 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { onSelectionPropType } from '../prop-types';
+
 class Word extends React.Component {
   static propTypes = {
     text: PropTypes.string.isRequired,
     punctuation: PropTypes.string,
+    onSelection: onSelectionPropType,
   };
+
+  static defaultProps = {
+    onSelection: null,
+  }
 
   static defaultProps = {
     punctuation: null,
   };
 
-  handleDoubleClick = () => {
-    console.log('Selected');
+  handleDoubleClick = (e) => {
+    const { onSelection } = this.props;
+
+    if (onSelection) {
+      onSelection(e);
+    }
   };
 
   renderPunctuation() {
@@ -22,6 +33,7 @@ class Word extends React.Component {
       ? (
         <span>
           {punctuation}
+          {' '}
         </span>
       ) : ' ';
   }

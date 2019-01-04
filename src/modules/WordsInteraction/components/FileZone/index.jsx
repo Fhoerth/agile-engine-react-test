@@ -5,6 +5,7 @@ import transformText from './utils';
 import styles from './styles.scss';
 
 import Words from './components/Words';
+import ToolTip from './components/ToolTip';
 
 class FileZone extends React.Component {
   static propTypes = {
@@ -17,28 +18,64 @@ class FileZone extends React.Component {
 
     this.state = {
       words: [],
+      modal: {
+        show: false,
+        position: {
+          x: 0,
+          y: 0,
+        },
+      },
     };
   }
 
-  static getDerivedStateFromProps(props) {
+  static getDerivedStateFromProps(props, state) {
     const { text } = props;
 
     return {
+      ...state,
       words: transformText(text),
     };
   }
 
-  handleSelection = () => {
+  handleSelection = (e) => {
+    const targetCoordinates = e.target.getBoundingClientRect();
+    const targetParentCoordinates = e.target.parentNode.getBoundingClientRect();
 
+    const x = targetCoordinates.left - targetParentCoordinates.left;
+    const y = targetCoordinates.top - targetParentCoordinates.top;
+
+    this.setState({
+      modal: {
+        show: true,
+        position: { x, y },
+      },
+    });
+  }
+
+  handleDismiss = () => {
+    const { modal } = this.state;
+
+    if (modal.show) {
+      this.setState({
+        modal: {
+          show: false,
+          position: { x: 0, y: 0 },
+        },
+      });
+    }
   }
 
   render() {
-    const { words } = this.state;
+    const { words, modal } = this.state;
 
     return (
-      <div className={styles['file-zone']} onDoubleClick={this.handleSelection}>
-        <div className={styles.file}>
-          <Words words={words} />
+      <div className={styles['file-zone']}>
+        <div className={styles.file} onClick={this.handleDismiss}>
+          <ToolTip show={modal.show} position={modal.position} />
+          <Words
+            words={words}
+            onSelection={this.handleSelection}
+          />
         </div>
       </div>
     );
