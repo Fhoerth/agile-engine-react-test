@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 
+export const onFormatTogglePropType = PropTypes.func;
 export const onSelectionPropType = PropTypes.func;
+export const onSynonymClickPropType = PropTypes.func;
 export const wordPropType = PropTypes.shape({
   key: PropTypes.string.isRequired,
   text: PropTypes.shape({

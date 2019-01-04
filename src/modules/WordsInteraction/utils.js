@@ -24,7 +24,7 @@ export function transformText(text) {
 
 export function replaceWord(words, selectedWord, synonym) {
   const mapper = (word) => {
-    if (word === selectedWord) {
+    if (word.key === selectedWord.key) {
       return {
         ...word,
         text: {
@@ -40,19 +40,23 @@ export function replaceWord(words, selectedWord, synonym) {
   return words.map(mapper);
 }
 
-export function formatWord(words, selectedWord, format) {
+export function toggleSelectedWordFormat(selectedWord, format) {
+  return {
+    ...selectedWord,
+    text: {
+      ...selectedWord.text,
+      format: {
+        ...selectedWord.text.format,
+        [format]: !(selectedWord.text.format && selectedWord.text.format[format]),
+      },
+    },
+  };
+}
+
+export function toggleWordFormat(words, selectedWord, format) {
   const mapper = (word) => {
-    if (word === selectedWord) {
-      return {
-        ...word,
-        text: {
-          ...word.text,
-          format: {
-            ...word.text.format,
-            [format]: true,
-          },
-        },
-      };
+    if (word.key === selectedWord.key) {
+      return toggleSelectedWordFormat(selectedWord, format);
     }
 
     return word;

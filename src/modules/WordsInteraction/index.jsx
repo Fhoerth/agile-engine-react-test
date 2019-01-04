@@ -6,14 +6,19 @@ import ControlPanel from './components/ControlPanel';
 import FileZone from './components/FileZone';
 
 import styles from './styles.scss';
-import { formatWord } from './utils';
+import {
+  replaceWord,
+  transformText,
+  toggleWordFormat,
+  toggleSelectedWordFormat,
+} from './utils';
 
 class WordsInteraction extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      text: null,
+      words: [],
       isLoading: true,
     };
   }
@@ -21,7 +26,7 @@ class WordsInteraction extends React.Component {
   componentDidMount() {
     textAPIClient.fetchMockText().then((text) => {
       this.setState({
-        text,
+        words: transformText(text),
         isLoading: false,
         selectedWord: null,
         tooltip: { show: false },
@@ -55,13 +60,28 @@ class WordsInteraction extends React.Component {
     }
   }
 
-  handleFormat = () => {
+  handleSynonymClick = synonym => () => {
+    const { words, selectedWord } = this.state;
 
+    this.setState({
+      words: replaceWord(words, selectedWord, synonym),
+    });
+  }
+
+  handleOnFormatToggle = format => () => {
+    if (format) {
+      const { words, selectedWord } = this.state;
+
+      this.setState({
+        words: toggleWordFormat(words, selectedWord, format),
+        selectedWord: toggleSelectedWordFormat(selectedWord, format),
+      });
+    }
   }
 
   render() {
     const {
-      text,
+      words,
       isLoading,
       selectedWord,
       tooltip,
@@ -73,15 +93,16 @@ class WordsInteraction extends React.Component {
         <div className={styles.main} onClick={this.handleDismiss}>
           <ControlPanel
             selectedWord={selectedWord}
-            onFormat={this.handleFormat}
+            onFormatToggle={this.handleOnFormatToggle}
           />
 
           {!isLoading && (
             <FileZone
-              text={text}
+              words={words}
               tooltip={tooltip}
               selectedWord={selectedWord}
               onSelection={this.handleSelection}
+              onSynonymClick={this.handleSynonymClick}
             />
           )}
         </div>
