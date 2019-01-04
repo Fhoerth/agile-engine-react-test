@@ -14,6 +14,7 @@ class ToolTip extends React.Component {
       y: PropTypes.number,
     }),
     word: wordPropType,
+    onSynonymClick: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -90,7 +91,7 @@ class ToolTip extends React.Component {
       isFetchRejected,
       synonyms,
     } = this.state;
-    const { word } = this.props;
+    const { word, onSynonymClick } = this.props;
 
     if (fetching) {
       return (<span className={styles.fetchingSynonyms}>Loading..</span>);
@@ -99,7 +100,11 @@ class ToolTip extends React.Component {
     if (isFetchSuccess && synonyms.length) {
       return (
         <ul className={styles.synonyms}>
-          {synonyms.map(synonym => (<li key={synonym.word}><span>{synonym.word}</span></li>))}
+          {synonyms.map(synonym => (
+            <li key={synonym.word}>
+              <span onClick={onSynonymClick(synonym)}>{synonym.word}</span>
+            </li>
+          ))}
         </ul>
       );
     }

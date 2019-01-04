@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import transformText from './utils';
+import { transformText, replaceWord } from './utils';
 import styles from './styles.scss';
 
 import Words from './components/Words';
@@ -15,27 +15,29 @@ class FileZone extends React.Component {
 
   constructor(props) {
     super(props);
+    const { text } = props;
 
     this.state = {
-      words: [],
+      words: transformText(text),
       selectedWord: null,
       modal: {
         show: false,
-        position: {
-          x: 0,
-          y: 0,
-        },
+        position: { x: 0, y: 0 },
       },
     };
   }
 
-  static getDerivedStateFromProps(props, state) {
-    const { text } = props;
+  componentDidUpdate(prevProps) {
+    const { text } = this.props;
+    const previousText = prevProps.text;
 
-    return {
-      ...state,
-      words: transformText(text),
-    };
+    if (text !== previousText) {
+      // It's safe to setState here, because of the text prop comparisson.
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        words: transformText(text),
+      });
+    }
   }
 
   handleSelection = (e, word) => {
@@ -59,12 +61,20 @@ class FileZone extends React.Component {
 
     if (modal.show) {
       this.setState({
-        modal: {
-          show: false,
-          position: { x: 0, y: 0 },
-        },
+        modal: { show: false },
       });
     }
+  }
+
+  handleSynonymClick = synonym => () => {
+    const { words, selectedWord } = this.state;
+
+    this.setState({
+      modal: {
+        show: false,
+      },
+      words: replaceWord(words, selectedWord, synonym),
+    });
   }
 
   render() {
@@ -77,6 +87,7 @@ class FileZone extends React.Component {
             show={modal.show}
             position={modal.position}
             word={selectedWord}
+            onSynonymClick={this.handleSynonymClick}
           />
           <Words
             words={words}

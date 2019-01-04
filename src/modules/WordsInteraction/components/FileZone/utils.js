@@ -1,4 +1,4 @@
-function transformText(text) {
+export function transformText(text) {
   return text.split(' ')
     .map((wordWithPunctuation, idx) => {
       const punctuationRE = /(,|\.|:|\(|\)|!|\?|\s)*$/g;
@@ -22,4 +22,20 @@ function transformText(text) {
     });
 }
 
-export default transformText;
+export function replaceWord(words, selectedWord, synonym) {
+  const mapper = (word) => {
+    if (word === selectedWord) {
+      return {
+        ...word,
+        text: {
+          ...word.text,
+          value: synonym.word,
+        },
+      };
+    }
+
+    return word;
+  };
+
+  return words.map(mapper);
+}
