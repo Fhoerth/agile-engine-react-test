@@ -1,50 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { onSelectionPropType } from '../prop-types';
+import { onSelectionPropType, wordPropType } from '../prop-types';
 
 class Word extends React.Component {
   static propTypes = {
-    text: PropTypes.string.isRequired,
-    punctuation: PropTypes.string,
     onSelection: onSelectionPropType,
+    word: wordPropType.isRequired,
   };
 
   static defaultProps = {
     onSelection: null,
   }
 
-  static defaultProps = {
-    punctuation: null,
-  };
-
   handleDoubleClick = (e) => {
-    const { onSelection } = this.props;
+    const { onSelection, word } = this.props;
 
     if (onSelection) {
-      onSelection(e);
+      onSelection(e, word);
     }
   };
 
   renderPunctuation() {
-    const { punctuation } = this.props;
+    const { word } = this.props;
 
-    return punctuation
+    return word.punctuation
       ? (
         <span>
-          {punctuation}
+          {word.punctuation}
           {' '}
         </span>
       ) : ' ';
   }
 
   render() {
-    const { text } = this.props;
+    const { word } = this.props;
 
     return (
       <React.Fragment>
         <span onDoubleClick={this.handleDoubleClick}>
-          {text}
+          {word.text}
         </span>
         {this.renderPunctuation()}
       </React.Fragment>

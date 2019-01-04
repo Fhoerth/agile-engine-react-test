@@ -37,7 +37,7 @@ class FileZone extends React.Component {
     };
   }
 
-  handleSelection = (e) => {
+  handleSelection = (e, word) => {
     const targetCoordinates = e.target.getBoundingClientRect();
     const targetParentCoordinates = e.target.parentNode.getBoundingClientRect();
 

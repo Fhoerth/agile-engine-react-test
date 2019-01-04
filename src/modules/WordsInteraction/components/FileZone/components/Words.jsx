@@ -2,25 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Word from './Word';
-import { onSelectionPropType } from '../prop-types';
+import { onSelectionPropType, wordPropType } from '../prop-types';
 
 function Words({ words, onSelection }) {
-  return words.map(item => (
+  return words.map(word => (
     <Word
-      key={item.key}
-      text={item.text}
-      punctuation={item.punctuation}
+      key={word.key}
+      word={word}
       onSelection={onSelection}
     />
   ));
 }
 
 Words.propTypes = {
-  words: PropTypes.arrayOf(PropTypes.shape({
-    key: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-    punctuation: PropTypes.string,
-  })),
+  words: PropTypes.arrayOf(wordPropType),
   onSelection: onSelectionPropType,
 };
 
