@@ -1,11 +1,12 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
 
-import styles from './styles.scss';
+import WordsInteraction from './modules/WordsInteraction';
+import './global.scss';
 
 function Main() {
   return (
-    <h1 className={styles.title}>Hello World!!! :D :D :D :D</h1>
+    <WordsInteraction />
   );
 }
 

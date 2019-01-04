@@ -1,0 +1,8 @@
+{
+  "api": {
+    "dataMuse": {
+      "baseURL": "https://api.datamuse.com",
+      "timeout": 1000
+    }
+  }
+}
